@@ -90,11 +90,12 @@
             app:autoSizeMaxTextSize="@dimen/mdtp_date_picker_header_text_size"
             tools:text="@string/pref_header_general" />
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/imageProfile"
-            android:layout_width="370dp"
-            android:layout_height="136dp"
+            android:layout_width="189dp"
+            android:layout_height="134dp"
             app:srcCompat="@drawable/user_icon" />
+
     </LinearLayout>
 
 

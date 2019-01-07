@@ -21,15 +21,18 @@
             android:id="@+id/callButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/chatButton"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/whatsappButton"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_call_black_24dp"
@@ -37,58 +40,45 @@
 
         <ImageButton
             android:id="@+id/whatsappButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
+            android:layout_width="56dp"
+            android:layout_height="54dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/callButton"
+            app:layout_constraintStart_toEndOf="@+id/smsButton"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/whatsapp_layer" />
 
         <ImageButton
             android:id="@+id/smsButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="68dp"
-            android:layout_marginLeft="68dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
             android:layout_marginBottom="8dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="32dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:background="@android:color/transparent"
             android:scaleType="fitCenter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/whatsappButton"
-            app:layout_constraintHorizontal_bias="0.812"
+            app:layout_constraintHorizontal_bias="0.187"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/ic_textsms_black_24dp" />
 
-        <ImageButton
-            android:id="@+id/chatButton"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="76dp"
-            android:layout_marginRight="76dp"
-            android:layout_marginBottom="8dp"
-            android:layout_weight="1"
-            android:clickable="true"
-            android:background="@android:color/transparent"
-            android:scaleType="fitCenter"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/ic_textsms_black_24dp" />
     </android.support.constraint.ConstraintLayout>
 
     <TextView
@@ -99,7 +89,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/freePlaces"
-        app:layout_constraintTop_toBottomOf="@+id/profilePict" />
+        app:layout_constraintTop_toBottomOf="@+id/driverPict" />
 
     <TextView
         android:id="@+id/freePlaces"
@@ -111,7 +101,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePict" />
+        app:layout_constraintTop_toBottomOf="@+id/driverPict" />
 
     <TextView
         android:id="@+id/fullName"
@@ -127,10 +117,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/profilePict"
-        android:layout_width="124dp"
-        android:layout_height="64dp"
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/driverPict"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"

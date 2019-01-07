@@ -141,6 +141,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         //if logout is pressed
         if (view == settingProfileBtn ){
             startActivity(new Intent(this, ProfileSettingActivity.class));
+
         }
 
         if(view == buttonLogout){
@@ -164,9 +165,12 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             }
             else
             startActivity(new Intent(this, PublishActivity.class));
+
         }
         if(view == MyRideHistoyButton){
             startActivity(new Intent(this, MyDrives.class));
+
+
         }
 }
 }

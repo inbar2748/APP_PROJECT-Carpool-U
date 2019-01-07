@@ -15,10 +15,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,6 +35,8 @@ import johannt.carpool_2.Profile_Features.ProfileActivity;
 import johannt.carpool_2.R;
 import johannt.carpool_2.Users.User;
 
+import static johannt.carpool_2.Profile_Features.ProfileActivity.picture;
+
 public class ResultActivity extends AppCompatActivity{
 
 
@@ -41,7 +45,7 @@ public class ResultActivity extends AppCompatActivity{
 
     private String date, endTime, startTime, price, src, dst;
     private Carpool ride;
-    private User driver;
+    public  User driver;
     private boolean checker, checkDates;
     private Validator validator;
     private List<Carpool> carpoolList;
@@ -87,37 +91,37 @@ public class ResultActivity extends AppCompatActivity{
         ride = new Carpool();
         driver = new User();
         validator = new Validator();
-        ButtonChat = findViewById(R.id.chatButton);
 
 
         carpoolListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-                Carpool carpool = carpoolList.get(i);
-                User driver = getDriver(carpool.getUID());
+               final Carpool carpool = carpoolList.get(i);
+
+                firebaseUsersRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                            driver = userSnapshot.getValue(User.class);
+                            if (carpool.getUID().equals(driver.getUID())) {
+                                break ;
+                            }
+                        }
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // Failed to read value
+                        Log.w("Failed to read value.", databaseError.toException());
+
+                    }
+                });
+
                 String name = carpool.getSrc()+" -> "+carpool.getDst()+"  "+carpool.getStartTime();
                 String fullName = carpool.getFirstName();
                 showContactDialog(carpool,driver,name , fullName);
             }
         });
 
-    }
-    /**
-     * @param uid
-     * @return driver corresponding to the carpool
-     */
-    public User getDriver(String uid) {
-        userRef = firebaseUsersRef.child(uid);
-        ValueEventListener valueEventListener = userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                driver = dataSnapshot.getValue(User.class);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-        return  driver ;
     }
 
     @Override
@@ -171,11 +175,18 @@ public class ResultActivity extends AppCompatActivity{
         final ImageButton buttonSms = dialogView.findViewById(R.id.smsButton);
         final ImageButton buttonCall = dialogView.findViewById(R.id.callButton);
         final ImageButton buttonWhatsapp = dialogView.findViewById(R.id.whatsappButton);
+        final ImageView driverPicture = dialogView.findViewById(R.id.driverPict);
+
 
 
         // setting the current values
         fullName.setText(fullname);
         numOfFreeplace.setText((carpool.getFreeSits()));
+        String uriDriver = actualDriver.getImgProfile();
+
+        if( uriDriver != null && uriDriver.length() > 10)
+        Glide.with(getApplicationContext()).load(uriDriver).into(driverPicture);
+        else driverPicture.setImageResource(R.drawable.user_icon);
 
         dialogBuilder.setTitle(Name);
         final AlertDialog b = dialogBuilder.create();
@@ -188,13 +199,10 @@ public class ResultActivity extends AppCompatActivity{
 
                 String numberToCall = "tel:"+driver.getPhoneNumber();
                 Toast.makeText(getApplicationContext(), "Call", Toast.LENGTH_SHORT).show();
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                Intent callIntent = new Intent(Intent.ACTION_DIAL);
                 callIntent.setData(Uri.parse(numberToCall));
 
-                if (ActivityCompat.checkSelfPermission(ResultActivity.this,
-                        Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-                    return;
-                }
+//
                 startActivity(callIntent);
                 b.dismiss();
 
@@ -233,7 +241,6 @@ public class ResultActivity extends AppCompatActivity{
             }
         });
     }
-
 
 
     protected void sendSMS(String number,String content) {
