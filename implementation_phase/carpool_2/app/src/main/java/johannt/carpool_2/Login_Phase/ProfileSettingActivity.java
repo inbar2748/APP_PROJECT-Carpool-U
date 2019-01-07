@@ -27,8 +27,11 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;
 
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +41,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -51,6 +55,7 @@ import johannt.carpool_2.Users.User;
 
 import static johannt.carpool_2.Profile_Features.ProfileActivity.firstName;
 import static johannt.carpool_2.Profile_Features.ProfileActivity.picture;
+import static johannt.carpool_2.Profile_Features.ProfileActivity.secondUser;
 
 public class ProfileSettingActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -197,9 +202,9 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
         byte[] data = baos.toByteArray();
-        imgProfileRef.putBytes(data);
+        UploadTask uploadTask = imgProfileRef.putBytes(data);
         Log.e("trying to upload image", "success");
-        setImgUrlToUser();
+        setImgUrlToUser(uploadTask,imgProfileRef,"imgProfile");
         ProfileActivity.profilPicIsSet = true ;
     }
 
@@ -207,20 +212,47 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
      * download Image url from Storage firebase
      * @return
      */
-    public void setImgUrlToUser(){
-        imgProfileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-            @Override
-            public void onSuccess(Uri uri) {
+    public void setImgUrlToUser(UploadTask uploadTask, final StorageReference ref, final String imgType){
 
-                final Uri Furi = uri;
-                databaseUsersRef.child(id).child("picture").setValue(Furi.toString());
-            }
-        }).addOnFailureListener(new OnFailureListener() {
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
             @Override
-            public void onFailure(@NonNull Exception exception) {
-                Log.e("downloadImage", "failed");
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+
+                // Continue with the task to get the download URL
+                return ref.getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    databaseUsersRef.child(id).child(imgType).setValue(downloadUri.toString());
+                    secondUser.setImgProfile(downloadUri.toString());
+
+                } else {
+                    // Handle failures
+                    // ...
+                }
             }
         });
+
+//        imgProfileRef.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+//            @Override
+//            public void onSuccess(Uri uri) {
+//
+//                final Uri Furi = uri;
+//
+//
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception exception) {
+//                Log.e("downloadImage", "failed");
+//            }
+//        });
     }
     /**
      * take a new picture with camera
@@ -337,8 +369,9 @@ public class ProfileSettingActivity extends AppCompatActivity implements View.On
 
         // set picture profile if exist
         //setUser(id);
-        if(picture.length() > EMPTY_SIZE)
-        Glide.with(this).load(picture).into(profilePict);
+        String imgP = secondUser.getImgProfile() ;
+        if(imgP.length() > EMPTY_SIZE)
+        Glide.with(this).load(imgP).into(profilePict);
         else profilePict.setImageResource(R.drawable.user_icon);
     }
 

@@ -44,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Button MyRideHistoyButton;
     private ImageView imageProfile;
 
-    private User secondUser;
+    public static User secondUser;
     private FirebaseUser user;
     public static boolean profilPicIsSet ;
     public static String  firstName, lastName, city, university, phoneNumber, email, picture;
