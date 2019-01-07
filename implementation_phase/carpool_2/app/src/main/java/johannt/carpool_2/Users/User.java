@@ -119,6 +119,7 @@ public class User {
     public String getImgCar() {
         return ImgCar;
     }
+
     public void setImgCar(String imgCar) {
         ImgCar = imgCar;
     }

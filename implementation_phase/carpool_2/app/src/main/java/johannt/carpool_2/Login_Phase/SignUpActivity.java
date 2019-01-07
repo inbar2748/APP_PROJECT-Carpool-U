@@ -192,7 +192,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                                 }
                                 progressDialog.dismiss();
                                 //display some message here
-                                Toast.makeText(SignUpActivity.this, "Email already in use", Toast.LENGTH_LONG).show();
+                              //  Toast.makeText(SignUpActivity.this, "Email already in use", Toast.LENGTH_LONG).show();
                             }
 
                     });
