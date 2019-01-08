@@ -223,10 +223,12 @@ public class ResultActivity extends AppCompatActivity{
                             carpool.getStartTime()+"-"+carpool.getEndTime()+"  "+carpool.getDate()
                             +"\n?\nThanks, "+ ProfileActivity.firstName;
 
-                    String toNumber = driver.getPhoneNumber().substring(1); // Replace with mobile phone number without +Sign or leading zeros.
-                    Intent sendIntent = new Intent(Intent.ACTION_SENDTO,Uri.parse("smsto:" + "" + toNumber + text + ""));
+                    String toNumber = "972" + driver.getPhoneNumber().substring(1); // Replace with mobile phone number without +Sign or leading zeros.
+
+                    Intent sendIntent = new Intent(Intent.ACTION_VIEW);
+                    sendIntent.setData(Uri.parse("http://api.whatsapp.com/send?phone="+toNumber +"&text="+text));
                     PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-                    sendIntent.setPackage("com.whatsapp");
+
                     startActivity(sendIntent);
 
 //                    Intent sendIntent = new Intent();

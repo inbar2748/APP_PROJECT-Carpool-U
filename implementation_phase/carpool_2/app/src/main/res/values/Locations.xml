@@ -3,25 +3,28 @@
 
         <string-array name="city_array">
             <item>City </item>
-            <item>Netanya </item>
-            <item>Tel Aviv</item>
+            <item>Ariel</item>
+            <item>Ashdod</item>
+            <item>Bnei Brak</item>
+            <item>Ely</item>
             <item>Hedera</item>
             <item>Haifa</item>
-            <item>Ashdod</item>
             <item>Jerusalem</item>
-            <item>Ariel</item>
-            <item>ely</item>
+            <item>Netanya </item>
+            <item>Petah Tikva</item>
+            <item>Tel Aviv</item>
+
         </string-array>
 
     <string-array name="university_array">
         <item>University </item>
         <item>Ariel U </item>
-        <item>Tel Aviv U</item>
-        <item>Ben gurion U</item>
-        <item>Technion</item>
-        <item>Haifa U</item>
         <item>Ashkelon U</item>
+        <item>Ben gurion U</item>
+        <item>Haifa U</item>
         <item>Jerusalem U</item>
+        <item>Technion</item>
+        <item>Tel Aviv U</item>
         <item>Wingate</item>
     </string-array>
 
