@@ -98,27 +98,15 @@ public class ResultActivity extends AppCompatActivity{
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                final Carpool carpool = carpoolList.get(i);
 
-                firebaseUsersRef.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                            driver = userSnapshot.getValue(User.class);
-                            if (carpool.getUID().equals(driver.getUID())) {
-                                break ;
-                            }
-                        }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                        // Failed to read value
-                        Log.w("Failed to read value.", databaseError.toException());
-
-                    }
-                });
-
-                String name = carpool.getSrc()+" -> "+carpool.getDst()+"  "+carpool.getStartTime();
-                String fullName = carpool.getFirstName();
-                showContactDialog(carpool,driver,name , fullName);
+               readData(carpool, new MyCallback() {
+                   @Override
+                   public void onCallback(User currentDriver) {
+                       String name = carpool.getSrc()+" -> "+carpool.getDst()+"  "+carpool.getStartTime();
+                       String fullName = carpool.getFirstName();
+                       showContactDialog(carpool,currentDriver,name,fullName);
+                   }
+               });
+               
             }
         });
 
@@ -260,6 +248,32 @@ public class ResultActivity extends AppCompatActivity{
             Toast.makeText(ResultActivity.this,
                     "SMS faild, please try again later.", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void readData(final Carpool carpool,final MyCallback myCallback) {
+        firebaseUsersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    driver = userSnapshot.getValue(User.class);
+                    if (carpool.getUID().equals(driver.getUID())) {
+                        myCallback.onCallback(driver);
+                        break ;
+                    }
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Failed to read value
+                Log.w("Failed to read value.", databaseError.toException());
+
+            }
+        });
+    }
+
+
+        public interface MyCallback {
+        void onCallback(User value);
     }
 
 }
