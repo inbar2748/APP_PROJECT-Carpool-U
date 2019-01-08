@@ -222,14 +222,20 @@ public class ResultActivity extends AppCompatActivity{
                     String text = "Carpool-U:\nHey,\ncan you reserve me a sit for the following drive:\n"+
                             carpool.getStartTime()+"-"+carpool.getEndTime()+"  "+carpool.getDate()
                             +"\n?\nThanks, "+ ProfileActivity.firstName;
-                    Intent sendIntent = new Intent();
-                    sendIntent.setAction(Intent.ACTION_SEND);
-                    sendIntent.setType("text/plain");
+
+                    String toNumber = driver.getPhoneNumber().substring(1); // Replace with mobile phone number without +Sign or leading zeros.
+                    Intent sendIntent = new Intent(Intent.ACTION_SENDTO,Uri.parse("smsto:" + "" + toNumber + text + ""));
                     PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
                     sendIntent.setPackage("com.whatsapp");
+                    startActivity(sendIntent);
 
-                    sendIntent.putExtra(Intent.EXTRA_TEXT, text);
-                    startActivity(Intent.createChooser(sendIntent, "Share with"));
+//                    Intent sendIntent = new Intent();
+//                    sendIntent.setAction(Intent.ACTION_SEND);
+//                    sendIntent.setType("text/plain");
+//                    sendIntent.setPackage("com.whatsapp");
+//
+//                    sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+//                    startActivity(Intent.createChooser(sendIntent, "Share with"));
 
                     // Toast.makeText(getApplicationContext(), "WhatsApp", Toast.LENGTH_SHORT).show();
                     b.dismiss();
