@@ -97,16 +97,16 @@ public class ResultActivity extends AppCompatActivity{
         carpoolListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
-               final Carpool carpool = carpoolList.get(i);
+                final Carpool carpool = carpoolList.get(i);
 
-               readData(carpool, new MyCallback() {
-                   @Override
-                   public void onCallback(User currentDriver) {
-                       String name = carpool.getSrc()+" -> "+carpool.getDst()+"  "+carpool.getStartTime();
-                       String fullName = carpool.getFirstName();
-                       showContactDialog(carpool,currentDriver,name,fullName);
-                   }
-               });
+                readData(carpool, new MyCallback() {
+                    @Override
+                    public void onCallback(User currentDriver) {
+                        String name = carpool.getSrc()+" -> "+carpool.getDst()+"  "+carpool.getStartTime();
+                        String fullName = carpool.getFirstName();
+                        showContactDialog(carpool,currentDriver,name,fullName);
+                    }
+                });
 
             }
         });
@@ -174,7 +174,7 @@ public class ResultActivity extends AppCompatActivity{
         String uriDriver = actualDriver.getImgProfile();
 
         if( uriDriver != null && uriDriver.length() > 10)
-        Glide.with(getApplicationContext()).load(uriDriver).into(driverPicture);
+            Glide.with(getApplicationContext()).load(uriDriver).into(driverPicture);
         else driverPicture.setImageResource(R.drawable.user_icon);
 
         dialogBuilder.setTitle(Name);
@@ -219,20 +219,20 @@ public class ResultActivity extends AppCompatActivity{
             public void onClick(View view) {
                 PackageManager pm=getPackageManager();
                 try{
-                String text = "Carpool-U:\nHey,\ncan you reserve me a sit for the following drive:\n"+
-                        carpool.getStartTime()+"-"+carpool.getEndTime()+"  "+carpool.getDate()
-                        +"\n?\nThanks, "+ ProfileActivity.firstName;
-                Intent sendIntent = new Intent();
-                sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.setType("text/plain");
-                PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
-                sendIntent.setPackage("com.whatsapp");
+                    String text = "Carpool-U:\nHey,\ncan you reserve me a sit for the following drive:\n"+
+                            carpool.getStartTime()+"-"+carpool.getEndTime()+"  "+carpool.getDate()
+                            +"\n?\nThanks, "+ ProfileActivity.firstName;
+                    Intent sendIntent = new Intent();
+                    sendIntent.setAction(Intent.ACTION_SEND);
+                    sendIntent.setType("text/plain");
+                    PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
+                    sendIntent.setPackage("com.whatsapp");
 
-                sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+                    sendIntent.putExtra(Intent.EXTRA_TEXT, text);
                     startActivity(Intent.createChooser(sendIntent, "Share with"));
 
-               // Toast.makeText(getApplicationContext(), "WhatsApp", Toast.LENGTH_SHORT).show();
-                b.dismiss();
+                    // Toast.makeText(getApplicationContext(), "WhatsApp", Toast.LENGTH_SHORT).show();
+                    b.dismiss();
                 } catch (PackageManager.NameNotFoundException e) {
                     Toast.makeText(ResultActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT)
                             .show();
@@ -250,7 +250,7 @@ public class ResultActivity extends AppCompatActivity{
         smsIntent.setData(Uri.parse("smsto:"+number));
 //        smsIntent.setType("vnd.android-dir/mms-sms");
 //        smsIntent.putExtra("address"  , new String ("01234"));
-          smsIntent.putExtra("sms_body"  , content);
+        smsIntent.putExtra("sms_body"  , content);
 
         try {
             startActivity(smsIntent);
@@ -284,7 +284,7 @@ public class ResultActivity extends AppCompatActivity{
     }
 
 
-        public interface MyCallback {
+    public interface MyCallback {
         void onCallback(User value);
     }
 
