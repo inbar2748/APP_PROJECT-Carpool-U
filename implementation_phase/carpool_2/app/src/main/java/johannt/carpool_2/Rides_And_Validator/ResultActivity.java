@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -106,7 +107,7 @@ public class ResultActivity extends AppCompatActivity{
                        showContactDialog(carpool,currentDriver,name,fullName);
                    }
                });
-               
+
             }
         });
 
@@ -216,15 +217,26 @@ public class ResultActivity extends AppCompatActivity{
         buttonWhatsapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                PackageManager pm=getPackageManager();
+                try{
+                String text = "Carpool-U:\nHey,\ncan you reserve me a sit for the following drive:\n"+
+                        carpool.getStartTime()+"-"+carpool.getEndTime()+"  "+carpool.getDate()
+                        +"\n?\nThanks, "+ ProfileActivity.firstName;
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, "a free place for "+carpool.getDate()+" ?");
                 sendIntent.setType("text/plain");
+                PackageInfo info=pm.getPackageInfo("com.whatsapp", PackageManager.GET_META_DATA);
                 sendIntent.setPackage("com.whatsapp");
-                startActivity(sendIntent);
-                Toast.makeText(getApplicationContext(), "WhatsApp", Toast.LENGTH_SHORT).show();
+
+                sendIntent.putExtra(Intent.EXTRA_TEXT, text);
+                    startActivity(Intent.createChooser(sendIntent, "Share with"));
+
+               // Toast.makeText(getApplicationContext(), "WhatsApp", Toast.LENGTH_SHORT).show();
                 b.dismiss();
+                } catch (PackageManager.NameNotFoundException e) {
+                    Toast.makeText(ResultActivity.this, "WhatsApp not Installed", Toast.LENGTH_SHORT)
+                            .show();
+                }
 
             }
         });
