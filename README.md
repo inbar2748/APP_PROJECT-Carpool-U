@@ -1,5 +1,5 @@
 
-![alt text](https://github.com/johant93/Carpool-U/blob/master/implementation_phase/carpool_2/app/src/main/carpool_starting-web.png)
+![alt text](https://github.com/johant93/Carpool-U/blob/master/implementation_phase/carpool_2/app/src/main/carpool_starting-web.png =200x200)
 
 # Carpool-U
 
