@@ -1,5 +1,7 @@
 
-<img src="https://github.com/johant93/Carpool-U/blob/master/implementation_phase/carpool_2/app/src/main/carpool_starting-web.png" width="200" height="200">
+<p align="center">
+  <img width="200" height="200" src="https://github.com/johant93/Carpool-U/blob/master/implementation_phase/carpool_2/app/src/main/carpool_starting-web.png">
+</p>
 
 # Carpool-U
 
