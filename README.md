@@ -16,7 +16,7 @@
 - [Screen-Shots](#Screen-Shots)
 - [Running](#Running)
 
-##drawback
+## drawback
 
 Today carpooling is mainly managed via WhatsApp and Telegram groups.
 Is it the best way to operate ? Absolutly not ! 
@@ -27,7 +27,7 @@ We can notice the following problems :
 - number of members/group is limited (e.g. 257 max for WhatsApp)
 - each group relevant to **one** city/location 
 
-##Carpool-U Advantages
+## Carpool-U
 
 With **Carpool-U**, we propose an application more targeted and intuitive for users.
 
@@ -38,9 +38,9 @@ With **Carpool-U**, we propose an application more targeted and intuitive for us
 let's explore Carpool-U implementation !
 
 
-##Screen-Shots
+## Screen-Shots
 
-##Running
+## Running
 
 
 
