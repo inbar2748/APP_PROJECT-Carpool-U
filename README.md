@@ -41,10 +41,18 @@ let's explore Carpool-U implementation !
 ## Screen-Shots
 
 ### Sign in
-<img src="https://github.com/johant93/Carpool-U/blob/master/שלב%20העיצוב/sign_in.png" width="300" height="600">
+<img src="https://github.com/johant93/Carpool-U/blob/master/שלב%20העיצוב/sign_in.png" width="250" height="500">
+
 ### Sign up
+<img src="https://github.com/johant93/Carpool-U/blob/master/שלב%20העיצוב/SignUp.png" width="250" height="500">
 
 ### Profile / Menu
+<img src="https://github.com/johant93/Carpool-U/blob/master/שלב%20העיצוב/profile.png" width="250" height="500">
+
+### My drives
+<img src="https://github.com/johant93/Carpool-U/blob/master/שלב%20העיצוב/myDrives.png" width="250" height="500">
+
+<img src="https://github.com/johant93/Carpool-U/blob/master/שלב%20העיצוב/mydriveSetting.png" width="250" height="500">
 
 
 ## Running
