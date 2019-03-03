@@ -15,7 +15,6 @@
 - [Solution](#Solution)
 - [Screen-Shots](#Screen-Shots)
 - [Installation](#Installation)
-- [Running](#Running)
 
 ## drawback
 
@@ -60,7 +59,11 @@ let's explore Carpool-U implementation !
 - All the `code` required to get started
 - Images of what it should look like
 
-## Running
+### Clone
+
+- Clone this repo to your local machine using `https://github.com/johant93/Carpool-U.git`
+
+
 
 
 
