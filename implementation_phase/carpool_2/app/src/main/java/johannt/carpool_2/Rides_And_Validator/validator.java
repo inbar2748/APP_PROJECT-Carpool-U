@@ -43,6 +43,7 @@ public class Validator {
 
     //Between dates validator
     public  Boolean checkBetweenTime(String time1 , String time2){
+        if(time2.equals("")) return true ;
         return time1.equals(time2);
     }
 
@@ -208,6 +209,17 @@ public class Validator {
 
     //price validator
     public Boolean checkPrice(String price1 , String price2){
+        if(price2.equals("")) return true ;
         return price1.equals(price2);
     }
+
+    public String setPrice(String src,String dst){
+        String price = "";
+        if(src.equals("Netanya")&&dst.equals("Ariel U")
+                ||src.equals("Ariel U")&&dst.equals("Netanya")) price = "15";
+        else if(src.equals("Tel Aviv")&&dst.equals("Ariel U")
+                ||src.equals("Ariel U")&&dst.equals("Tel Aviv")) price = "20";
+        return price;
+    }
 }
+

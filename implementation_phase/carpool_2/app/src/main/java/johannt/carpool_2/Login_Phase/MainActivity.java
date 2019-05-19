@@ -9,13 +9,17 @@ import android.view.MenuItem;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import johannt.carpool_2.Profile_Features.ProfileActivity;
 import johannt.carpool_2.R;
+import johannt.carpool_2.Rides_And_Validator.ResultActivity;
 
 public class MainActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
-
+    private String src, dst;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +38,33 @@ public class MainActivity extends AppCompatActivity {
                     //closing this activity and opening signin activity.
                     startActivity(new Intent(MainActivity.this, SignInActivity.class));
                 } else {
-                    startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+
+                    SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                    Date date = new Date();
+                    String currDate = formatter.format(date);
+                    if(currDate.charAt(0) == '0' && currDate.charAt(3) == '0'){
+                        formatter.applyPattern("d/M/yyyy");
+                        currDate = formatter.format(date);
+                    }
+                    else if(currDate.charAt(0) == '0'){
+                        formatter.applyPattern("d/MM/yyyy");
+                        currDate = formatter.format(date);
+                    }
+                    else{
+                        formatter.applyPattern("dd/M/yyyy");
+                        currDate = formatter.format(date);
+
+                    }
+
+                    Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+                    intent.putExtra("date", currDate);
+                    intent.putExtra("endTime", "");
+                    intent.putExtra("startTime", "");
+                    intent.putExtra("price", "");
+                    intent.putExtra("src", ProfileActivity.university);
+                    intent.putExtra("dst", ProfileActivity.city);
+                    startActivity(intent);
+                    startActivity(new Intent(MainActivity.this, ResultActivity.class));
                 }
                 MainActivity.this.finish();
             }

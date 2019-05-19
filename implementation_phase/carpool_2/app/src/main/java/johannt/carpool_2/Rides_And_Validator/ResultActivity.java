@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,6 +43,7 @@ public class ResultActivity extends AppCompatActivity{
 
 
     private ImageButton ButtonChat;
+    private Button homebtn;
     private ListView carpoolListView;
 
     private String date, endTime, startTime, price, src, dst;
@@ -76,6 +78,8 @@ public class ResultActivity extends AppCompatActivity{
         firebaseUsersRef = databaseCarPool.getReference("Users");
 
         carpoolListView = findViewById(R.id.list_view_carpool);
+        homebtn = findViewById(R.id.buttonHome);
+
 
 
         carpoolList = new ArrayList<>();
@@ -92,7 +96,12 @@ public class ResultActivity extends AppCompatActivity{
         ride = new Carpool();
         driver = new User();
         validator = new Validator();
-
+        homebtn.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View view) {
+                                           startActivity(new Intent(ResultActivity.this, ProfileActivity.class));
+                                       }
+                                   });
 
         carpoolListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -125,7 +134,7 @@ public class ResultActivity extends AppCompatActivity{
                     checkDates = date.equals(ride.getDate()) &&
                             validator.checkBetweenTime(ride.getStartTime(), startTime) &&
                             validator.checkBetweenTime(ride.getEndTime(), endTime) &&
-                            validator.checkPrice(price, ride.getPrice()) &&
+                            validator.checkPrice(ride.getPrice(),price) &&
                             ride.getSrc().equals(src) &&
                             ride.getDst().equals(dst);
                     if (checkDates) {
@@ -206,7 +215,9 @@ public class ResultActivity extends AppCompatActivity{
 
                 String content = "Carpool-U:\nHey,\ncan you reserve me a sit for the following drive:\n"+
                         carpool.getStartTime()+"-"+carpool.getEndTime()+"  "+carpool.getDate()
-                        +"\n?\nThanks, "+ ProfileActivity.firstName;
+                        +"\n?\nThanks, "+ ProfileActivity.firstName
+                        +"\n\nConfirmation: http://jovial-keller-e862af.netlify.com/?u="+carpool.getUID();
+
                 sendSMS(driver.getPhoneNumber(),content);
 
                 b.dismiss();
@@ -221,7 +232,8 @@ public class ResultActivity extends AppCompatActivity{
                 try{
                     String text = "Carpool-U:\nHey,\ncan you reserve me a sit for the following drive:\n"+
                             carpool.getStartTime()+"-"+carpool.getEndTime()+"  "+carpool.getDate()
-                            +"\n?\nThanks, "+ ProfileActivity.firstName;
+                            +"\n?\nThanks, "+ ProfileActivity.firstName
+                            +"\n\nConfirmation: http://jovial-keller-e862af.netlify.com/?u="+carpool.getId();
 
                     String toNumber = "972" + driver.getPhoneNumber().substring(1); // Replace with mobile phone number without +Sign or leading zeros.
 

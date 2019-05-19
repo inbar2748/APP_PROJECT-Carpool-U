@@ -1,0 +1,44 @@
+<index>
+    <head>
+        <title>Carpool-U Confirmation</title>
+    </head>
+    <body>
+        <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+         <!-- Add Firebase products that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-database.js"></script>
+<h1>Carpool-U: Voyager confirmed successfully <h1> 
+        <script>
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const myParam = urlParams.get('u');
+
+            console.log("myParam: " + myParam)
+
+            function setApproved(uid) {
+                var updates = {};
+                updates['/Rides/'+uid+'/confirm1'] = true
+
+                return firebase.database().ref().update(updates);
+            }
+
+            // TODO: Replace the following with your app's Firebase project configuration
+            const firebaseConfig = {
+  apiKey: "AIzaSyB8Ah9Jyun50bTdddK7lGL5BiDOVP2e8Ls",
+  authDomain: "carpool-u.firebaseapp.com",
+  databaseURL: "https://carpool-u.firebaseio.com",
+  projectId: "carpool-u",
+  storageBucket: "carpool-u.appspot.com",
+  messagingSenderId: "816781851418",
+  appId: "1:816781851418:web:86ae4e3321845fa8"
+};
+        
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+
+            var database = firebase.database();
+
+            setApproved(myParam)
+          </script>
+    </body>
+</index>

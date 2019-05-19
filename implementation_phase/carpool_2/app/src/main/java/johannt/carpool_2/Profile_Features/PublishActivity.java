@@ -22,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -55,6 +56,7 @@ public class PublishActivity extends AppCompatActivity  implements View.OnClickL
     private DatabaseReference firebaseDatabaseUsers;
     private FirebaseDatabase databaseCarPool;
     private FirebaseUser firebaseUser;
+    Validator validator = new Validator();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,8 +138,32 @@ public class PublishActivity extends AppCompatActivity  implements View.OnClickL
 
     @Override
     protected void onStart() {
-        super.onStart();
-        setCityToUniversity();
+            super.onStart();
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            Date date = new Date();
+            String currDate = formatter.format(date);
+            if(currDate.charAt(0) == '0' && currDate.charAt(3) == '0'){
+                formatter.applyPattern("d/M/yyyy");
+                currDate = formatter.format(date);
+            }
+            else if(currDate.charAt(0) == '0'){
+                formatter.applyPattern("d/MM/yyyy");
+                currDate = formatter.format(date);
+            }
+            else{
+                formatter.applyPattern("dd/M/yyyy");
+                currDate = formatter.format(date);
+
+            }
+            editTextDate.setText(currDate);
+            setCityToUniversity();
+
+            editTextStartTime.setText("7:00");
+            editTextEndTime.setText("9:00");
+            editTextPrice.setText(validator.setPrice(spinnerSrc.getSelectedItem().toString(),
+                                                      spinnerDest.getSelectedItem().toString()));
+            spinnerFreePlace.setSelection(getIndex(spinnerFreePlace, "3"));
+
     }
 
     /**
@@ -218,7 +244,6 @@ public class PublishActivity extends AppCompatActivity  implements View.OnClickL
             dst = spinnerDest.getSelectedItem().toString();
             freeSits = spinnerFreePlace.getSelectedItem().toString();
 
-            Validator validator = new Validator();
             boolean checker = false;
             checker = validator.checkDate(date, this) &&
                     validator.checkdst(dst, this) &&

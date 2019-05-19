@@ -110,6 +110,9 @@ public class FindRideActivity extends AppCompatActivity implements View.OnClickL
         editTextDate.setText(currDate);
         setCityToUniversity();
 
+        editTextPrice.setText(validator.setPrice(spinnerSrc.getSelectedItem().toString(),
+                spinnerDest.getSelectedItem().toString()));
+
         editTextStartTime.setText("7:00");
         editTextEndTime.setText("9:00");
 
@@ -195,9 +198,6 @@ public class FindRideActivity extends AppCompatActivity implements View.OnClickL
             validator = new Validator();
 
             checker = validator.checkDate(date, this) &&
-                    validator.checkTime(endTime, this) &&
-                    validator.checkTime(startTime, this)&&
-                    validator.checkPrice(price, this) &&
                     validator.checkdst(dst, this) &&
                     validator.checkSrc(src, this) ;
 

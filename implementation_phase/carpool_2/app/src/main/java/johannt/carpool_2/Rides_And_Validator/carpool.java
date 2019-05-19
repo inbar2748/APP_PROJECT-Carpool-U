@@ -7,6 +7,7 @@ public class Carpool {
     }
 
     private String id , firstName , lastName ,  date,  startTime ,endTime, price, freeSits, src, dst, phoneNumber , UID;
+    boolean confirm1, confirm2 ;
 
     //--------------------------------- Constructor ---------------------------------
 
@@ -23,6 +24,8 @@ public class Carpool {
         this.dst = dst;
         this.phoneNumber = phoneNumber;
         this.UID = UID;
+        this.confirm1 = false;
+        this.confirm2 = false;
     }
 
 
@@ -125,8 +128,8 @@ public class Carpool {
         this.src = src;
     }
 
+    public boolean getConfirm1(){return confirm1 ;}
 
-
-
+    public boolean getConfirm2(){return confirm2 ;}
 
 }

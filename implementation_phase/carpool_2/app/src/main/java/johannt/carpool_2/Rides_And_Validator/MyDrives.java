@@ -54,13 +54,13 @@ public class MyDrives extends AppCompatActivity {
         carpools = new ArrayList<>();
 
 
-        carpoolListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        carpoolListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+            public void onItemClick(AdapterView<?> parent, View view, int i, long l) {
                 Carpool carpool = carpools.get(i);
                 String name = carpool.getSrc()+" -> "+carpool.getDst()+"  "+carpool.getStartTime();
                 showUpdateDeleteDialog(carpool, name);
-                return true;
+
             }
         });
 
@@ -116,6 +116,8 @@ public class MyDrives extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "updated successfully", Toast.LENGTH_SHORT).show();
 
         } catch (Exception e) {
+
+
             e.printStackTrace();
         }
         return true;
