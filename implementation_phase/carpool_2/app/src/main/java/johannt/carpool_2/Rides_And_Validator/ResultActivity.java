@@ -221,7 +221,7 @@ public class ResultActivity extends AppCompatActivity{
                 String content = "Carpool-U:\nHey,\ncan you reserve me a sit for the following drive:\n"+
                         carpool.getStartTime()+"-"+carpool.getEndTime()+"  "+carpool.getDate()
                         +"\n?\nThanks, "+ ProfileActivity.firstName
-                        +"\n\nConfirmation: http://jovial-keller-e862af.netlify.com/?u="+carpool.getUID();
+                        +"\n\nConfirmation: http://clever-babbage-4c93ae.netlify.com/?u="+carpool.getUID();
 
                 sendSMS(driver.getPhoneNumber(),content);
 
@@ -238,7 +238,7 @@ public class ResultActivity extends AppCompatActivity{
                     String text = "Carpool-U:\nHey,\ncan you reserve me a sit for the following drive:\n"+
                             carpool.getStartTime()+"-"+carpool.getEndTime()+"  "+carpool.getDate()
                             +"\n?\nThanks, "+ ProfileActivity.firstName
-                            +"\n\nConfirmation: http://jovial-keller-e862af.netlify.com/?u="+carpool.getId();
+                            +"\n\nConfirmation: http://clever-babbage-4c93ae.netlify.com/?u="+carpool.getId();
 
                     String toNumber = "972" + driver.getPhoneNumber().substring(1); // Replace with mobile phone number without +Sign or leading zeros.
 
