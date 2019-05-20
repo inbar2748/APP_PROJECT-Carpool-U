@@ -237,8 +237,8 @@ public class PublishActivity extends AppCompatActivity  implements View.OnClickL
 
         if (v == addRideBtn) {
             date = editTextDate.getText().toString();
-            endTime = editTextEndTime.getText().toString();
             startTime = editTextStartTime.getText().toString();
+            endTime = editTextEndTime.getText().toString();
             price = editTextPrice.getText().toString();
             src = spinnerSrc.getSelectedItem().toString();
             dst = spinnerDest.getSelectedItem().toString();
@@ -264,6 +264,12 @@ public class PublishActivity extends AppCompatActivity  implements View.OnClickL
                 progressDialog.dismiss();
                 finish();
             }
+
         }
     }
+
+//    public String EstimateArrival(String departure){
+//        return (String.valueOf(Integer.parseInt(departure.substring(0,departure.indexOf(':')))+1)+":00");
+//    }
+
 }

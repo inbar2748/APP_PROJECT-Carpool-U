@@ -46,7 +46,7 @@ public class ResultActivity extends AppCompatActivity{
     private Button homebtn;
     private ListView carpoolListView;
 
-    private String date, endTime, startTime, price, src, dst;
+    private String date, endTime, startTime, price, src, dst,loc;
     private Carpool ride;
     public  User driver;
     private boolean checker, checkDates;
@@ -92,6 +92,8 @@ public class ResultActivity extends AppCompatActivity{
         price = intent.getStringExtra("price");
         src = intent.getStringExtra("src");
         dst = intent.getStringExtra("dst");
+        loc = intent.getStringExtra("location");
+
 
         ride = new Carpool();
         driver = new User();
@@ -100,6 +102,7 @@ public class ResultActivity extends AppCompatActivity{
                                        @Override
                                        public void onClick(View view) {
                                            startActivity(new Intent(ResultActivity.this, ProfileActivity.class));
+                                           finish();
                                        }
                                    });
 
@@ -145,6 +148,8 @@ public class ResultActivity extends AppCompatActivity{
                 progressDialog.dismiss();
                 if (carpoolList.isEmpty()) {
                     Toast.makeText(ResultActivity.this, "No rides were found", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(ResultActivity.this, ProfileActivity.class));
+                    finish();
                 } else {
                     carpoolAdapter = new RideInfoAdapter(ResultActivity.this, carpoolList);
                     carpoolListView.setAdapter(carpoolAdapter);

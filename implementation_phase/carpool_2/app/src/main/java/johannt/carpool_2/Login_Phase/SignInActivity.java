@@ -106,7 +106,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                         //if the task is successfull
                         if(task.isSuccessful()){
                             //start the profile activity
-                            //finish();
+                            finish();
                             startActivity(new Intent(SignInActivity.this, ProfileActivity.class));
                         }
                         else {

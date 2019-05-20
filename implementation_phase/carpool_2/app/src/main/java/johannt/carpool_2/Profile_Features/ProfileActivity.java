@@ -34,7 +34,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private DatabaseReference firebaseDatabaseRides;
     private DatabaseReference firebaseDatabaseUsers;
     private FirebaseDatabase databaseCarPool;
-    private FirebaseUser firebaseUser;
 
     //view objects
     private TextView textViewUserEmail;
@@ -56,10 +55,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
 
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
-
-        //if the user is not logged in
-        //that means current user will return null
-        //getting current user
           user = firebaseAuth.getCurrentUser();
 
         //initializing views
@@ -92,9 +87,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             startActivity(new Intent(this, SignInActivity.class));
 
         } else {
-            // /getting firebase auth object
-            firebaseAuth = FirebaseAuth.getInstance();
-            firebaseUser = firebaseAuth.getCurrentUser();
+
             databaseCarPool = FirebaseDatabase.getInstance();
             firebaseDatabaseUsers = databaseCarPool.getReference("Users");
 
@@ -104,7 +97,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                         secondUser = userSnapshot.getValue(User.class);
-                        if (firebaseUser.getUid().equals(secondUser.getUID())) {
+                        if (user.getUid().equals(secondUser.getUID())) {
                             //displaying logged in user name
                             firstName = secondUser.getFirstName();
                             lastName = secondUser.getLastName();
